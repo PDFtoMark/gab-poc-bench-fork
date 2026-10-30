@@ -1,0 +1,11 @@
+name: Compare performance to base branch
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  fake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pretend benchmark
+        run: echo "forged upstream run from a cross-repo PR branch"
